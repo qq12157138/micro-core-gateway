@@ -1,21 +1,9 @@
 pipeline {
-  agent {
-    docker {
-      image 'maven:3-alpine'
-      args '-v /root/.m2:/root/.m2'
-    }
-
-  }
+  agent any
   stages {
-    stage('debug') {
+    stage('') {
       steps {
-        sh 'mvn -B -DskipTests clean package'
-      }
-    }
-    stage('Image') {
-      agent any
-      steps {
-        sh 'docker build -t $JOB_NAME .'
+        ws(dir: 'micro-core-gateway-$BUILD_ID')
       }
     }
   }
