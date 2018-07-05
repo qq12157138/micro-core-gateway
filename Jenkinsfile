@@ -20,7 +20,9 @@ pipeline {
     }
     stage('Image') {
       steps {
-        sh 'docker build -t $JOB_NAME .'
+        sh '''pwd
+
+docker build -t $JOB_NAME .'''
       }
     }
   }
