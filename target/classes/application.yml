@@ -1,8 +1,0 @@
-spring:
-  cloud:
-    gateway:
-      routes:
-      - id: host_route
-        uri: http://user:8080
-        predicates:
-        - Path=/user/**
