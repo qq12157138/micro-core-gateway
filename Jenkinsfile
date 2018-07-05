@@ -7,18 +7,14 @@ pipeline {
 
   }
   stages {
-    stage('Build') {
-      parallel {
-        stage('Package') {
-          steps {
-            sh 'mvn -B -DskipTests clean package'
-          }
-        }
-        stage('Image') {
-          steps {
-            sh 'docker build -t $JOB_NAME .'
-          }
-        }
+    stage('Package') {
+      steps {
+        sh 'mvn -B -DskipTests clean package'
+      }
+    }
+    stage('Image') {
+      steps {
+        sh 'docker build -t $JOB_NAME .'
       }
     }
   }
