@@ -6,25 +6,13 @@ pipeline {
 
   }
   stages {
-    stage('Package') {
-      parallel {
-        stage('Package') {
-          agent {
-            docker {
-              image 'maven:3-alpine'
-              args '-v /root/.m2:/root/.m2'
-            }
+    stage('debug') {
+      steps {
+        sh '''pwd
 
-          }
-          steps {
-            sh 'mvn -B -DskipTests clean package'
-          }
-        }
-        stage('debug') {
-          steps {
-            sh 'ls target'
-          }
-        }
+mvn -B -DskipTests clean package
+
+ls target'''
       }
     }
     stage('Image') {
