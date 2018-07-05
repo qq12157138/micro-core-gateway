@@ -1,25 +1,21 @@
 pipeline {
   agent {
-    node {
-      label 'master'
+    docker {
+      image 'maven:3-alpine'
+      args '-v /root/.m2:/root/.m2'
     }
 
   }
   stages {
     stage('debug') {
       steps {
-        sh '''pwd
-
-mvn -B -DskipTests clean package
-
-ls target'''
+        sh 'mvn -B -DskipTests clean package'
       }
     }
     stage('Image') {
+      agent any
       steps {
-        sh '''pwd
-
-docker build -t $JOB_NAME .'''
+        sh 'docker build -t $JOB_NAME .'
       }
     }
   }
