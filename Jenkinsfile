@@ -1,9 +1,19 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'master'
+    }
+
+  }
   stages {
-    stage('') {
+    stage('Package') {
       steps {
-        ws(dir: 'micro-core-gateway-$BUILD_ID')
+        sh 'mvn -B -DskipTests clean package'
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'docker build -t $JOB_NAME .'
       }
     }
   }
