@@ -11,9 +11,11 @@ pipeline {
         sh 'mvn -B -DskipTests clean package'
       }
     }
-    stage('Build') {
+    stage('Image') {
       steps {
-        sh 'docker build -t $JOB_NAME .'
+        sh '''docker build -t registry.cn-hangzhou.aliyuncs.com/micro-java/$JOB_NAME .
+
+docker push registry.cn-hangzhou.aliyuncs.com/micro-java/$JOB_NAME'''
       }
     }
   }
