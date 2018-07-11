@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Package') {
       steps {
-        sh 'mvn -B -DskipTests clean package'
+        sh 'mvn -B -DskipTests -Dmaven.javadoc.skip=true clean package'
       }
     }
     stage('Build Image') {
